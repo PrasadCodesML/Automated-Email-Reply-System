@@ -1,0 +1,101 @@
+Quote ID,FSA to S&D Conversion,POS Customer,End Customer,Address Issue,Quote Closed By,Next Action Required,Additional Findings
+5007901340,No,Company A Corp,End F Ltd,Yes,Internal Team,Confirm update,No conflicts found
+5002569607,Yes,Company B Corp,End G Ltd,Yes,BUPA,Address it to BUPA,Additional validation needed
+5008486211,No,Company C Corp,End H Ltd,Yes,BUPA,Reply with details,Address mismatch
+5003473411,Yes,Company D Corp,End I Ltd,Yes,Internal Team,Address it to BUPA,Approved for change
+5001414860,Yes,Company E Corp,End J Ltd,No,BUPA,Address it to BUPA,Approved for change
+5004290975,Yes,Company F Corp,End K Ltd,Yes,Internal Team,Provide details,Approved for change
+5007367821,No,Company G Corp,End L Ltd,Yes,BUPA,Escalate to BUPA,Approved for change
+5008203700,Yes,Company H Corp,End M Ltd,No,Internal Team,Reply with details,Additional validation needed
+5006804629,No,Company I Corp,End N Ltd,Yes,BUPA,Confirm update,Address mismatch
+5007129561,Yes,Company J Corp,End O Ltd,Yes,Internal Team,Address it to BUPA,No conflicts found
+5008893732,Yes,Company K Corp,End P Ltd,Yes,Internal Team,Escalate to BUPA,Additional validation needed
+5006421689,No,Company L Corp,End Q Ltd,Yes,Internal Team,Confirm update,Additional validation needed
+5008449846,Yes,Company M Corp,End R Ltd,Yes,Internal Team,Provide details,Address mismatch
+5009799005,Yes,Company N Corp,End S Ltd,Yes,Internal Team,Reply with details,Additional validation needed
+5003697306,No,Company O Corp,End T Ltd,No,BUPA,Escalate to BUPA,Approved for change
+5005129556,Yes,Company P Corp,End U Ltd,No,BUPA,Address it to BUPA,No conflicts found
+5007943391,Yes,Company Q Corp,End V Ltd,Yes,Internal Team,Provide details,Additional validation needed
+5002742807,Yes,Company R Corp,End W Ltd,No,Internal Team,Address it to BUPA,Additional validation needed
+5003718391,No,Company S Corp,End X Ltd,No,BUPA,Escalate to BUPA,Address mismatch
+5003356401,No,Company T Corp,End Y Ltd,Yes,BUPA,Provide details,Additional validation needed
+5001277246,Yes,Company U Corp,End Z Ltd,Yes,BUPA,Provide details,No conflicts found
+5007051997,No,Company V Corp,End A Ltd,Yes,BUPA,Address it to BUPA,Additional validation needed
+5004620734,Yes,Company W Corp,End B Ltd,Yes,BUPA,Address it to BUPA,Address mismatch
+5008768477,Yes,Company X Corp,End C Ltd,Yes,Internal Team,Provide details,No conflicts found
+5004930605,Yes,Company Y Corp,End D Ltd,No,Internal Team,Confirm update,Approved for change
+5009542874,Yes,Company Z Corp,End E Ltd,No,Internal Team,Confirm update,Additional validation needed
+5001518619,Yes,Company A Corp,End F Ltd,Yes,BUPA,Reply with details,Additional validation needed
+5004362187,Yes,Company B Corp,End G Ltd,Yes,Internal Team,Address it to BUPA,Additional validation needed
+5005312281,Yes,Company C Corp,End H Ltd,Yes,Internal Team,Reply with details,No conflicts found
+5001618744,No,Company D Corp,End I Ltd,No,BUPA,Provide details,Additional validation needed
+5009185525,No,Company E Corp,End J Ltd,Yes,Internal Team,Provide details,Approved for change
+5004826963,Yes,Company F Corp,End K Ltd,Yes,BUPA,Address it to BUPA,Approved for change
+5003514873,Yes,Company G Corp,End L Ltd,Yes,BUPA,Escalate to BUPA,Address mismatch
+5004149236,No,Company H Corp,End M Ltd,No,Internal Team,Escalate to BUPA,Address mismatch
+5001983269,Yes,Company I Corp,End N Ltd,No,Internal Team,Escalate to BUPA,Approved for change
+5004277336,No,Company J Corp,End O Ltd,Yes,BUPA,Address it to BUPA,Approved for change
+5006672769,No,Company K Corp,End P Ltd,No,Internal Team,Address it to BUPA,Address mismatch
+5003771816,No,Company L Corp,End Q Ltd,No,BUPA,Provide details,Approved for change
+5002918120,No,Company M Corp,End R Ltd,No,Internal Team,Reply with details,No conflicts found
+5007102875,No,Company N Corp,End S Ltd,No,Internal Team,Reply with details,No conflicts found
+5007318808,Yes,Company O Corp,End T Ltd,Yes,BUPA,Provide details,Additional validation needed
+5002887031,No,Company P Corp,End U Ltd,No,BUPA,Escalate to BUPA,Approved for change
+5008087455,Yes,Company Q Corp,End V Ltd,No,BUPA,Escalate to BUPA,No conflicts found
+5001902661,No,Company R Corp,End W Ltd,No,BUPA,Escalate to BUPA,Approved for change
+5003432996,Yes,Company S Corp,End X Ltd,Yes,Internal Team,Confirm update,Approved for change
+5004727116,Yes,Company T Corp,End Y Ltd,No,Internal Team,Reply with details,Additional validation needed
+5003506365,Yes,Company U Corp,End Z Ltd,Yes,Internal Team,Confirm update,No conflicts found
+5004778175,No,Company V Corp,End A Ltd,Yes,Internal Team,Reply with details,Address mismatch
+5002044646,No,Company W Corp,End B Ltd,Yes,BUPA,Reply with details,No conflicts found
+5005588300,No,Company X Corp,End C Ltd,No,BUPA,Confirm update,Address mismatch
+5002518722,No,Company Y Corp,End D Ltd,Yes,Internal Team,Escalate to BUPA,Additional validation needed
+5003595873,No,Company Z Corp,End E Ltd,Yes,Internal Team,Confirm update,No conflicts found
+5008153801,No,Company A Corp,End F Ltd,Yes,Internal Team,Provide details,No conflicts found
+5006977400,No,Company B Corp,End G Ltd,No,Internal Team,Address it to BUPA,Approved for change
+5008794960,Yes,Company C Corp,End H Ltd,No,Internal Team,Reply with details,Additional validation needed
+5002995662,Yes,Company D Corp,End I Ltd,No,Internal Team,Escalate to BUPA,Additional validation needed
+5003796866,Yes,Company E Corp,End J Ltd,Yes,BUPA,Confirm update,Approved for change
+5008389529,No,Company F Corp,End K Ltd,Yes,BUPA,Provide details,Approved for change
+5004178273,Yes,Company G Corp,End L Ltd,No,BUPA,Address it to BUPA,Approved for change
+5006762951,No,Company H Corp,End M Ltd,Yes,Internal Team,Address it to BUPA,Approved for change
+5001479536,Yes,Company I Corp,End N Ltd,Yes,BUPA,Confirm update,Address mismatch
+5004993821,No,Company J Corp,End O Ltd,No,Internal Team,Provide details,Approved for change
+5001210398,No,Company K Corp,End P Ltd,No,BUPA,Escalate to BUPA,Approved for change
+5006969550,Yes,Company L Corp,End Q Ltd,Yes,Internal Team,Reply with details,Additional validation needed
+5004907742,No,Company M Corp,End R Ltd,Yes,Internal Team,Confirm update,No conflicts found
+5008776083,Yes,Company N Corp,End S Ltd,No,BUPA,Confirm update,Additional validation needed
+5005578407,No,Company O Corp,End T Ltd,Yes,BUPA,Reply with details,No conflicts found
+5008223369,No,Company P Corp,End U Ltd,No,BUPA,Provide details,Approved for change
+5001422436,No,Company Q Corp,End V Ltd,Yes,Internal Team,Reply with details,No conflicts found
+5007165974,No,Company R Corp,End W Ltd,No,Internal Team,Address it to BUPA,Address mismatch
+5009137465,No,Company S Corp,End X Ltd,No,Internal Team,Reply with details,No conflicts found
+5009320020,Yes,Company T Corp,End Y Ltd,No,Internal Team,Provide details,Additional validation needed
+5001597535,No,Company U Corp,End Z Ltd,No,BUPA,Escalate to BUPA,Additional validation needed
+5001189951,No,Company V Corp,End A Ltd,Yes,BUPA,Provide details,No conflicts found
+5008418947,Yes,Company W Corp,End B Ltd,Yes,BUPA,Provide details,No conflicts found
+5002015441,No,Company X Corp,End C Ltd,No,Internal Team,Address it to BUPA,Approved for change
+5007409041,No,Company Y Corp,End D Ltd,Yes,BUPA,Confirm update,Address mismatch
+5009656362,No,Company Z Corp,End E Ltd,No,BUPA,Reply with details,No conflicts found
+5004443838,No,Company A Corp,End F Ltd,Yes,Internal Team,Address it to BUPA,Approved for change
+5003165367,Yes,Company B Corp,End G Ltd,Yes,BUPA,Provide details,No conflicts found
+5009188270,No,Company C Corp,End H Ltd,Yes,Internal Team,Address it to BUPA,Address mismatch
+5005163906,No,Company D Corp,End I Ltd,Yes,BUPA,Reply with details,Additional validation needed
+5002477451,No,Company E Corp,End J Ltd,Yes,BUPA,Reply with details,Address mismatch
+5005758451,No,Company F Corp,End K Ltd,Yes,BUPA,Confirm update,Address mismatch
+5001547327,Yes,Company G Corp,End L Ltd,No,Internal Team,Escalate to BUPA,Address mismatch
+5001413532,Yes,Company H Corp,End M Ltd,Yes,Internal Team,Reply with details,Approved for change
+5009689038,No,Company I Corp,End N Ltd,No,Internal Team,Confirm update,Address mismatch
+5003548050,No,Company J Corp,End O Ltd,No,BUPA,Escalate to BUPA,Additional validation needed
+5006033219,No,Company K Corp,End P Ltd,Yes,Internal Team,Confirm update,Address mismatch
+5001671981,No,Company L Corp,End Q Ltd,Yes,Internal Team,Confirm update,Address mismatch
+5007279265,No,Company M Corp,End R Ltd,No,Internal Team,Escalate to BUPA,Additional validation needed
+5003886831,Yes,Company N Corp,End S Ltd,Yes,BUPA,Reply with details,Address mismatch
+5001602934,Yes,Company O Corp,End T Ltd,No,Internal Team,Address it to BUPA,Additional validation needed
+5004825610,Yes,Company P Corp,End U Ltd,No,BUPA,Confirm update,Address mismatch
+5009285650,No,Company Q Corp,End V Ltd,Yes,Internal Team,Provide details,Additional validation needed
+5006777472,No,Company R Corp,End W Ltd,No,Internal Team,Escalate to BUPA,Address mismatch
+5008599012,Yes,Company S Corp,End X Ltd,Yes,Internal Team,Provide details,Approved for change
+5005913885,No,Company T Corp,End Y Ltd,No,BUPA,Escalate to BUPA,Address mismatch
+5007422599,Yes,Company U Corp,End Z Ltd,Yes,Internal Team,Provide details,Approved for change
+5008860554,Yes,Company V Corp,End A Ltd,No,BUPA,Address it to BUPA,Additional validation needed

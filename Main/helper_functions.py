@@ -15,7 +15,7 @@ def get_database_connection(database_name: str = "TE_Email_Custom_Database"):
         )
         return connection
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return None
 
 
@@ -247,9 +247,10 @@ TE Connectivity Support Team
 
 
 def process_adding_parts_to_piggyback_query(query: str) -> str:
-    """Process queries for adding parts to existing piggyback."""
-    # Try to extract piggyback ID
-    piggyback_id = extract_id(query, r'(ADD\d+|PGB-\d+)', "Could not find a valid Piggyback ID in the query.")
+    """Process queries for adding parts to an existing piggyback."""
+    # Extract Piggyback ID and ADD ID
+    piggyback_id = extract_id(query, r'PGB-\d+', "Could not find a valid Piggyback ID in the query.")
+    add_id = extract_id(query, r'ADD\d+', "Could not find a valid ADD ID in the query.")
     
     connection = get_database_connection()
     if not connection:
@@ -258,33 +259,12 @@ def process_adding_parts_to_piggyback_query(query: str) -> str:
     try:
         cursor = connection.cursor(dictionary=True)
         
-        # First, get the structure of the table
-        cursor.execute("DESCRIBE 04_adding_parts_pos_queries")
-        columns = cursor.fetchall()
-        column_names = [col['Field'] for col in columns]
-        
-        if piggyback_id:
-            # Try to find columns that might contain the piggyback ID
-            piggyback_columns = [col for col in column_names if "pgb" in col.lower() or "pig" in col.lower()]
-            
-            if piggyback_columns:
-                # Create a query that searches for the piggyback ID in any of these columns
-                conditions = []
-                params = []
-                for col in piggyback_columns:
-                    conditions.append(f"{col} LIKE %s")
-                    params.append(f"%{piggyback_id}%")
-                
-                query_sql = f"""SELECT * FROM 04_adding_parts_pos_queries WHERE {" OR ".join(conditions)}"""
-                cursor.execute(query_sql, params)
-            else:
-                # If no piggyback-specific columns, search in all columns
-                query_sql = "SELECT * FROM 04_adding_parts_pos_queries LIMIT 1"
-                cursor.execute(query_sql)
-        else:
-            # Without a piggyback ID, just fetch the most recent record
-            query_sql = "SELECT * FROM 04_adding_parts_pos_queries LIMIT 1"
-            cursor.execute(query_sql)
+        # Query database to find matching records
+        query_sql = """
+        SELECT * FROM 04_adding_parts_pos_queries 
+        WHERE `pgb-4023` = %s AND `add88632` = %s
+        """
+        cursor.execute(query_sql, (piggyback_id, add_id))
         
         result = cursor.fetchone()
         
@@ -292,13 +272,13 @@ def process_adding_parts_to_piggyback_query(query: str) -> str:
             return f"""
 📅 **Date:** {datetime.now().strftime("%B %d, %Y")}
 
-**No information found for Piggyback ID: {piggyback_id or 'Unknown'}**
+**No information found for Piggyback ID: {piggyback_id or 'Unknown'} and ADD ID: {add_id or 'Unknown'}**
 
 Possible reasons:
 - The request may not exist in our database
-- The piggyback ID format might be incorrect
+- The piggyback ID or ADD ID format might be incorrect
 
-Please verify the piggyback ID and try again.
+Please verify the IDs and try again.
 
 **Best Regards,**  
 TE Connectivity Support Team
@@ -307,7 +287,7 @@ TE Connectivity Support Team
         # Build response based on available columns
         template = """
 🔹 **Request ID:** {add88632}  
-🔹 **Piggyback ID:** {pgb}  
+🔹 **Piggyback ID:** {pgb-4023}  
 🔹 **Distributor:** {distributor}  
 🔹 **Part Number(s):** {pn}  
 🔹 **POS Customer:** {pos}  
@@ -321,7 +301,7 @@ TE Connectivity Support Team
         
         data = {
             "add88632": result.get("add88632", "N/A"),
-            "pgb": result.get("pgb-4023", "N/A"),
+            "pgb-4023": result.get("pgb-4023", "N/A"),
             "distributor": result.get("distributor_m_ltd", "N/A"),
             "pn": result.get("pn-515629", "N/A"),
             "pos": result.get("pos-customer_w_inc", "N/A"),
@@ -851,7 +831,7 @@ TE Connectivity Support Team
         return format_response(data, template)
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
@@ -859,13 +839,14 @@ TE Connectivity Support Team
             conn.close()
             print("🔌 Database connection closed")
 
+from datetime import datetime
+
 def process_sfdc_pending_opportunities(query):
     """Process queries about opportunities pending for review on SFDC (Type 12)."""
     print(f"🔍 Processing SFDC pending opportunities query: {query}")
     
-    quote_id = extract_id(query, r'#?(\d{10})', "Could not find a valid Quote ID in the query.")
-    # Extract opportunity ID - add this line after the quote_id extraction
-    opportunity_id = extract_id(query, r'opportunity\s+(?:id|#)?\s*[:=]?\s*(\d{9})', "Could not find a valid Opportunity ID in the query.")
+    # Extract opportunity ID
+    opportunity_id = extract_id(query, r'(OPP\d+)', "Could not find a valid Opportunity ID in the query.")
     if not opportunity_id:
         return " Could not find a valid Opportunity ID in the query. Please provide a **9-digit** Opportunity ID."
     
@@ -877,8 +858,8 @@ def process_sfdc_pending_opportunities(query):
             return " Database connection error. Please try again later."
         
         cursor = conn.cursor(dictionary=True)
-        query = """SELECT * FROM 12_sfdc_pending_opp_queries WHERE opportunity_id = %s"""
-        cursor.execute(query, (opportunity_id,))
+        query_sql = """SELECT * FROM 12_sfdc_pending_opp_queries WHERE opportunity_id = %s"""
+        cursor.execute(query_sql, (opportunity_id,))
         result = cursor.fetchone()
         
         if not result:
@@ -907,7 +888,6 @@ TE Connectivity Support Team
         }
         
         template = """
-📅 **Date:** {current_date}
 
 🔹 **Opportunity ID:** {opportunity_id}  
 🔹 **Pending With:** {pending_with}  
@@ -921,33 +901,29 @@ Could you please approve the opportunity #{opportunity_id} pending with you for 
 
 🔗 Please let us know if you need any further assistance.  
 
-**Best Regards,**  
-TE Connectivity Support Team
 """
         
         return format_response(data, template)
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
             cursor.close()
             conn.close()
-            print("🔌 Database connection closed")
 
 def process_opportunity_rejected_incorrectly(query):
     """Process queries about opportunities incorrectly rejected on SFDC (Type 13)."""
     print(f"🔍 Processing incorrectly rejected opportunity query: {query}")
     
-    quote_id = extract_id(query, r'#?(\d{10})', "Could not find a valid Quote ID in the query.")
     # Extract opportunity ID - add this line after the quote_id extraction
-    opportunity_id = extract_id(query, r'opportunity\s+(?:id|#)?\s*[:=]?\s*(\d{9})', "Could not find a valid Opportunity ID in the query.")
+    opportunity_id = extract_id(query, r'(OPP\d+)', "Could not find a valid Opportunity ID in the query.")
     if not opportunity_id:
         return " Could not find a valid Opportunity ID in the query. Please provide a **9-digit** Opportunity ID."
     
     print(f"📝 Extracted Opportunity ID: {opportunity_id}")
-    
+    current_date = datetime.now().strftime("%B %d, %Y")
     try:
         conn = get_database_connection()
         if not conn:
@@ -976,6 +952,7 @@ TE Connectivity Support Team
         
         # Format the data for the response
         data = {
+            "current_date": current_date,
             "opportunity_id": opportunity_id,
             "next_action_required": result.get("next_action_required", "N/A"),
             "additional_findings": result.get("additional_findings", "N/A")
@@ -992,14 +969,12 @@ The opportunity #{opportunity_id} has been rejected on SFDC and unfortunately th
 {next_action_required}  
 **Additional Findings:** {additional_findings}  
 
-**Best Regards,**  
-TE Connectivity Support Team
 """
         
         return format_response(data, template)
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
@@ -1011,7 +986,7 @@ def process_loa_related_queries(query):
     """Process LOA (Letter of Authorization) related queries (Type 14)."""
     print(f"🔍 Processing LOA related query: {query}")
     
-    loa_request_id = extract_id(query, r'#?(\d{10})', "Could not find a valid Quote ID in the query.")
+    loa_request_id = extract_id(query, r'(LOA\d+)', "Could not find a valid Opportunity ID in the query.")
     if not loa_request_id:
         return " Could not find a valid LOA Request ID in the query. Please provide the LOA Request ID."
     
@@ -1042,9 +1017,10 @@ Please verify the LOA request ID and try again.
 **Best Regards,**  
 TE Connectivity Support Team
 """
-        
+        current_date = datetime.now().strftime("%B %d, %Y")
         # Format the data for the response
         data = {
+            'current_date': current_date,
             "loa_request_id": loa_request_id,
             "received_from": result.get("received_from", "N/A"),
             "loa_verification_status": result.get("loa_verification_status", "N/A"),
@@ -1073,7 +1049,7 @@ TE Connectivity Support Team
 **Additional Findings:** {additional_findings}  
 """
         else:
-            template += """❌ **The LOA verification found issues that need to be addressed.**  
+            template += """ **The LOA verification found issues that need to be addressed.**  
 
 **Next Steps:**  
 {next_action_required}  
@@ -1081,16 +1057,10 @@ TE Connectivity Support Team
 
 Please provide an updated LOA with the correct information.
 """
-        
-        template += """
-**Best Regards,**  
-TE Connectivity Support Team
-"""
-        
         return format_response(data, template)
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
@@ -1170,7 +1140,7 @@ TE Connectivity Support Team
         return response
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
@@ -1184,11 +1154,11 @@ def process_agreement_pn_query(query):
     print(f"🔍 Processing agreement PN query: {query}")
     
     # Extract agreement ID using extract_id function
-    agreement_id = extract_id(query, r'agreement\s+(?:id|#)?\s*[:=]?\s*(\w+[-\d]*)', 
-                            "Could not find a valid Agreement ID in the query")
+    agreement_id = extract_id(query, r'(AGR\d+)', "Could not find a valid Agreement ID in the query.")
+
     
     # Extract part number if available
-    part_number = extract_id(query, r'(?:part|pn|p/n)\s+(?:number|#)?\s*[:=]?\s*(\w+[-\d]*)', "Could not find a valid Part Number in the query")
+    part_number = extract_id(query, r'(PN-\d+)', "Could not find a valid Opportunity ID in the query.")
     
     print(f"📝 Extracted Agreement ID: {agreement_id}, Part Number: {part_number}")
     
@@ -1264,7 +1234,7 @@ TE Connectivity Support Team
         return response
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
@@ -1361,7 +1331,7 @@ TE Connectivity Support Team
         return response
         
     except mysql.connector.Error as err:
-        print(f"❌ Database Error: {err}")
+        print(f" Database Error: {err}")
         return f" Database error occurred while processing your request: {err}"
     finally:
         if 'conn' in locals() and conn.is_connected():
